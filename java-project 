@@ -1,1 +1,61 @@
-.
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class LoginSystem {
+    static HashMap<String, String> userDatabase = new HashMap<>();
+    static Scanner sc = new Scanner(System.in);
+
+    public static void register() {
+        System.out.print("Enter a username: ");
+        String username = sc.nextLine();
+
+        if (userDatabase.containsKey(username)) {
+            System.out.println("Username already exists. Please try another.");
+            return;
+        }
+
+        System.out.print("Enter a password: ");
+        String password = sc.nextLine();
+
+        userDatabase.put(username, password);
+        System.out.println("Registration successful!");
+    }
+
+    public static void login() {
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+
+        if (userDatabase.containsKey(username)) {
+            if (userDatabase.get(username).equals(password)) {
+                System.out.println("Login successful! Welcome, " + username);
+            } else {
+                System.out.println("Incorrect password.");
+            }
+        } else {
+            System.out.println("Username not found.");
+        }
+    }
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            System.out.println("\n--- Login System ---");
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            choice = Integer.parseInt(sc.nextLine());
+
+            switch (choice) {
+                case 1 -> register();
+                case 2 -> login();
+                case 3 -> System.out.println("Exiting program...");
+                default -> System.out.println("Invalid choice. Try again.");
+            }
+        } while (choice != 3);
+    }
+}
